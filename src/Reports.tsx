@@ -49,7 +49,7 @@ export default function Reports() {
   const fetchReports = async () => {
     try {
       const token = localStorage.getItem('streamiq_token');
-      const res = await fetch('http://localhost:5000/api/reports', {
+      const res = await fetch('/api/reports', {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (res.ok) {
@@ -70,7 +70,7 @@ export default function Reports() {
   const handleDownload = async (report: Report) => {
     try {
       const token = localStorage.getItem('streamiq_token');
-      const res = await fetch(`http://localhost:5000/api/reports/${report._id}/download`, {
+      const res = await fetch(`/api/reports/${report._id}/download`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (res.ok) {
@@ -96,7 +96,7 @@ export default function Reports() {
     if (!window.confirm('Are you sure you want to delete this report?')) return;
     try {
       const token = localStorage.getItem('streamiq_token');
-      const res = await fetch(`http://localhost:5000/api/reports/${id}`, {
+      const res = await fetch(`/api/reports/${id}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` }
       });
