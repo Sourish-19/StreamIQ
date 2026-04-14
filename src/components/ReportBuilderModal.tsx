@@ -67,7 +67,7 @@ export default function ReportBuilderModal({ isOpen, onClose, onSuccess }: Repor
     setIsSubmitting(true);
     try {
       const token = localStorage.getItem('streamiq_token');
-      const res = await fetch('http://localhost:5000/api/reports', {
+      const res = await fetch('/api/reports', {
         method: 'POST',
         headers: { 
           Authorization: `Bearer ${token}`,
