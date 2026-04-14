@@ -31,7 +31,8 @@ app.use('/api/reports', reportRoutes);
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../dist')));
 
-  app.get('*', (req, res) => {
+  // Support for modern Express / path-to-regexp generic wildcards
+  app.get('(.*)', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../dist', 'index.html'));
   });
 } else {
