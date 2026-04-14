@@ -3,6 +3,8 @@ const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
 
+const path = require('path');
+
 // Route imports
 const authRoutes = require('./routes/authRoutes');
 const analyticsRoutes = require('./routes/analyticsRoutes');
@@ -25,10 +27,18 @@ app.use('/api/analytics', analyticsRoutes);
 app.use('/api/content', contentRoutes);
 app.use('/api/reports', reportRoutes);
 
-// Base route test
-app.get('/', (req, res) => {
-  res.send('StreamIQ Analytics API is running');
-});
+// Serve frontend in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../dist')));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../dist', 'index.html'));
+  });
+} else {
+  app.get('/', (req, res) => {
+    res.send('StreamIQ Analytics API is running');
+  });
+}
 
 // Start Server
 const PORT = process.env.PORT || 5000;
